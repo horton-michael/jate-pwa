@@ -16,6 +16,7 @@ module.exports = () => {
     output: {
       filename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
+      publicPath: '/',
     },
     plugins: [
       new HtmlWebpackPlugin({
@@ -43,7 +44,7 @@ module.exports = () => {
       }),
       new InjectManifest({
         swSrc: './src-sw.js',
-        swDest: 'sw.js',
+        swDest: 'service-worker.js',
       }),
     ],
 
@@ -58,6 +59,10 @@ module.exports = () => {
               presets: [['@babel/preset-env', { targets: 'defaults' }]],
             },
           },
+        },
+        {
+          test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
+          type: 'asset/resource',
         },
         {
           test: /\.css$/i,
